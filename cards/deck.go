@@ -10,6 +10,16 @@ func (d deck) print() {
 	}
 }
 
-//func newDeck() deck {
-//	cards := deck{"Ace of spades", "Two of Spades"}
-//}
+func newDeck() deck {
+	cards := deck{}
+
+	cardSuit := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
+	cardValue := []string{"Ace", "Two", "Three", "Four"}
+
+	for _, suite := range cardSuit {
+		for _, value := range cardValue {
+			cards = append(cards, value + " of " + suite)
+		}
+	}
+	return cards
+}
