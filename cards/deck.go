@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"strings"
 	"io/ioutil"
+	"os"
+	"math/rand"
+	"time"
 )
 
 type deck []string
@@ -43,4 +46,26 @@ func (d deck) toString() string {
 // Save to file
 func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(filename string) deck {
+	bs, err := ioutil.ReadFile(filename)
+	if err != nil {
+		fmt.Println("Erorr: ", err)
+		os.Exit(1)
+	}
+	s := strings.Split(string(bs), ",")
+
+	return deck(s)
+}
+
+// Shuffle cards
+func (d deck) shuffle()  {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPosition := r.Intn(len(d) - 1)
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
 }
