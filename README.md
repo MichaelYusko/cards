@@ -1,2 +1,2 @@
 # Playing with Golang
-Nothing special:)
+Nothing special:=)
